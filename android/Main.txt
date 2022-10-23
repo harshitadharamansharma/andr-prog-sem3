@@ -1,0 +1,124 @@
+
+
+public class MainActivity extends ActionBarActivity{
+
+ DtatbaseHelper mydb;
+ 
+ EditText editID, editName, editCourse, editCgpa; 
+ Button add, bview, update, delete;
+ 
+ editID = (EditText)findViewById(R.id.); 
+ editName = (EditText)findViewById(R.id.);
+ editCourse = (EditText)findViewById(R.id.);
+ editCgpa = (EditText)findViewById(R.id.);
+ 
+ add = (Button)findViewById(R.id.);
+ bview = (Button)findViewById(R.id.);
+ update = (Button)findViewById(R.id.);
+ delete = (Button)findViewById(R.id.); 
+ 
+ @Override
+ protected void onCreate( Bundle savedInstance State){
+  
+  super.onCreate(savedInstance);
+  setContentView(R.layout.activity_main);
+  mydb = new Database Helper( this );
+ }
+ 
+ public void AddData(){
+  
+  add.setonClickListener(
+   new View.OnClickListener(){
+    @Override
+	public void onClick( View v){
+	 boolaen isInserted = mydb.insertdata( editID.getText().toString(), editName.getText().toString(), editCourse.getText().toString(), editCourse.getText.toString() );
+     
+     if( isInserted == true)
+     Toast.makeText( MainActivity.this, " Data Inserted ", Toast.LENGTH_LONG).show();
+   
+     else
+     Toast.makeText( MainActivity.this, " Data not Inserted ", Toast.LENGTH_LONG).show();	 
+	}
+   }
+  );
+ }
+ 
+ public void viewAll(){
+ 
+  bview.setonClickListener(
+  new View.OnClickListener{
+   @Override
+   public void onClick( View v){
+    Cursor res = mydb.getAllData();
+	
+	if( res.getCount() == 0 ){
+	
+	 showMessage( " ERROR ", " NOTHING FOUND " );
+	 return;
+	}
+	
+	StringBuffer buffer = new StringBuffer();
+	while(res.moveToNext()){
+	 
+	 buffer.append(" ID : " + res.getStribg)(0) + " \n " );
+	 buffer.append(" NAME : " + res.getStribg)(1) + " \n " );
+	 buffer.append(" COURSE : " + res.getStribg)(2) + " \n " );
+	 buffer.append(" CGPA : " + res.getStribg)(3) + " \n " );
+	}showMessage(" Data ", buffer.toString());
+   }
+   }
+  );
+ }
+ 
+ public void showMessage(String title, String Message){
+  
+  AlertDialog.Builder builder = new AlertDialog.Builder(this);
+  builder.setCancelable(true);
+  builder.setTitle(title);
+  builder.setMessage(Message);
+ }
+ 
+ public void UpdateData(){
+  
+  bview.setOnClickListener(
+   new View.OnClickListener(){
+    @Override
+	
+	public void onClick(View v){
+	 boolean isUpdate = mydb.updateData(editID.getText().toString(), editName.getText().toString(), editCourse.getText().toString(), editCgpa.getText().toString());
+     if(isUpdate == true){
+	  Toast.makeText(MainActivity.this, " Data Update ", Toast.LENGTH_LONG).show();
+
+     else
+      Toast.makeText(MainActivity.this, " Data not updated ", Toast.LENGTH_LONG).show();	 
+	 }
+	}
+   }
+  )
+ }
+ 
+ @Override
+ public boolean onCreateOptionsMenu(Menu menu){
+ 
+  getMenuInflater().inflate(R.menu.menu_main,main);
+  return true;
+ }
+ 
+ @Override
+ public boolean onOptionsItemSelected(MenuItem item){
+ 
+  int id = item.getItemId(); 
+ }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+}

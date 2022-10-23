@@ -1,0 +1,65 @@
+
+
+public DatabaseHelper extends SQLiteOpenHelper{
+
+ public static final sting DATABASE_NAME = "student.db";
+ public static final sting TABLE_NAME = "student_table";
+ public static final sting COL_1 = "ID";
+ public static final sting COL_1 = "NAME";
+ public static final sting COL_1 = "COURSE";
+ public static final sting COL_1 = "CGPA";
+ 
+ public DatabaseHelper( Context context){
+  super( context, DATABASE_NAME, null, 1);
+ }
+ 
+ @Override
+ public void onCreate( SQLiteDatabase db ){
+ 
+ db.execSQL( "Create table" + TABLE_NAME + "(ID INTEGER PRIMARY KEY, NAME TEXT, COURSE TEXT, CGPA REAL)");
+ }
+ 
+ @Override
+ public void onUpgrade( SQLiteDatabase db, int oldVersion, int newVersion){
+ 
+ db.execSQL( " DROP TABLE IF EXISTS " + TABLE_NAME );
+ onCreate(db);
+ }
+ 
+ public boolean insertData( String id, String name, String course, String cgpa ){
+ 
+  SQLiteDatabase db = this.getWritableDtatbase();
+  ContentValues contentValues = new ContentValues;
+  contentValues.put( COL_1, id);
+  contentValues.put( COL_2, name);
+  contentValues.put( COL_3, course);
+  contentValues.put( COL_4, cgpa);
+  long result = db.insert(TABLE_NAME, null, contentValues);
+  if(resule == -1)
+   return false;
+  else
+   return true; 
+ }
+ 
+ public Cursor getAllData(){
+  
+  SQLiteDatabase db = this.getWritableDtatbase();
+  Cursor res = db.rawQuery( "select * from " + TABLE_NAME, null);
+  return res;  
+ }
+ 
+ public boolean updateData( String id, String name, String course, String cgpa ){
+  
+  SQLiteDatabase db = this.getWritableDtatbase();
+  ContentValues contentValues = nw ContentValues();
+  
+  contentValues.put(COL_1,id);
+  contentValues.put(COL_2,name);
+  contentValues.put(COL_3,course);
+  contentValues.put(COL_4,cgpa);
+
+  db.update( TABLE_NAME, contentValues, "ID = ?", new String[] {id} )
+  
+  return true;  
+ }
+} 
